@@ -176,42 +176,6 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
   return picture;
 }
 
-/*
-  * Decorates external images with a picture element
-  * @param {Element} ele The element
-  * @param {string} deliveryMarker The marker for external images
-  * @private
-  * @example
-  * decorateExternalImages(main, '//External Image//');
-  */
-function decorateExternalImages(ele, deliveryMarker) {
-  const extImages = ele.querySelectorAll('a');
-  extImages.forEach((extImage) => {
-    if (isExternalImage(extImage, deliveryMarker)) {
-      const extImageSrc = extImage.getAttribute('href');
-      const extPicture = createOptimizedPicture(extImageSrc);
-
-      /* copy query params from link to img */
-      const extImageUrl = new URL(extImageSrc);
-      const { searchParams } = extImageUrl;
-      extPicture.querySelectorAll('source, img').forEach((child) => {
-        if (child.tagName === 'SOURCE') {
-          const srcset = child.getAttribute('srcset');
-          if (srcset) {
-            child.setAttribute('srcset', appendQueryParams(new URL(srcset, extImageSrc), searchParams));
-          }
-        } else if (child.tagName === 'IMG') {
-          const src = child.getAttribute('src');
-          if (src) {
-            child.setAttribute('src', appendQueryParams(new URL(src, extImageSrc), searchParams));
-          }
-        }
-      });
-      extImage.parentNode.replaceChild(extPicture, extImage);
-    }
-  });
-}
-
 /**
  * Decorates all images in a container element and replace media urls with delivery urls.
  * @param {Element} main The container element
@@ -242,11 +206,13 @@ function decorateDeliveryImages(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  // decorate external images with explicit external image marker
-  decorateExternalImages(main, '//External Image//');
+  if (window.hlx.aemassets.decorateExternalImages) {
+    // decorate external images with explicit external image marker
+    window.hlx.aemassets.decorateExternalImages(main, '//External Image//');
 
-  // decorate external images with implicit external image marker
-  decorateExternalImages(main);
+    // decorate external images with implicit external image marker
+    window.hlx.aemassets.decorateExternalImages(main);
+  }
 
   // decorate images with delivery url and correct alt text
   decorateDeliveryImages(main);
