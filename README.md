@@ -11,6 +11,14 @@ Integration between AEM Asset Selector and AEM Franklin to make AEM assets avail
 - Preview: https://main--{repo}--{owner}.aem.page/
 - Live: https://main--{repo}--{owner}.aem.live/
 
+## Documentation
+
+Before using the aem-boilerplate, we recommand you to go through the documentation on https://www.aem.live/docs/ and more specifically:
+1. [Developer Tutorial](https://www.aem.live/developer/tutorial)
+2. [The Anatomy of a Project](https://www.aem.live/developer/anatomy-of-a-project)
+3. [Web Performance](https://www.aem.live/developer/keeping-it-100)
+4. [Markup, Sections, Blocks, and Auto Blocking](https://www.aem.live/developer/markup-sections-blocks)
+
 ## Installation
 
 ```sh
@@ -45,3 +53,4 @@ This configuration is particularly useful for extending the Assets Selector capa
 [1]: https://245265-extensionconfig.adobeioruntime.net/api/v1/web/extension-config/extension-config?webPath=snorkling
 [2]: https://github.com/Adobe-Marketing-Cloud/assets-selector-extension
 [3]: https://www.aem.live/developer/configuring-aem-assets-sidekick-plugin#extend-aem-assets-sidekick-plugin
+1. Open the `{repo}` directory in your favorite IDE and start coding :)
